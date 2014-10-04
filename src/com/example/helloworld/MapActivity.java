@@ -1,5 +1,6 @@
 package com.example.helloworld;
 
+
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesClient;
 import com.google.android.gms.common.GooglePlayServicesUtil;
@@ -14,10 +15,12 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.ActionBarActivity;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
+import android.app.NotificationManager;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.location.Location;
@@ -121,6 +124,7 @@ GooglePlayServicesClient.OnConnectionFailedListener {
 
 	@Override
 	public void onConnected(Bundle connectionHint) {
+		makeNotification();
 		// Display the connection status
         Toast.makeText(this, "Connected", Toast.LENGTH_SHORT).show();
         Location currentLocation = mLocationClient.getLastLocation();
@@ -230,4 +234,19 @@ GooglePlayServicesClient.OnConnectionFailedListener {
         }
         return false;
     }
+    
+    private void makeNotification() {
+		NotificationCompat.Builder mBuilder = 
+			    new NotificationCompat.Builder(this)
+	    .setSmallIcon(R.drawable.ic_launcher)
+	    .setContentTitle("My notification")
+	    .setContentText("Hello World!");
+		// Sets an ID for the notification
+		int mNotificationId = 001;
+		// Gets an instance of the NotificationManager service
+		NotificationManager mNotifyMgr = 
+		        (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+		// Builds the notification and issues it.
+		mNotifyMgr.notify(mNotificationId, mBuilder.build());
+	}
 }

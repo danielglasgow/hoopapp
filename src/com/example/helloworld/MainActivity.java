@@ -48,6 +48,7 @@ public class MainActivity extends ActionBarActivity {
 		courts.add(Courts.H_LOT);
 		courts.add(Courts.MASSEL);
 		intent.putExtra("com.example.helloworld.courts", new CourtsTransferObject(courts));
+		//intent.putExtra("com.example.helloworld.courts", getNearbyCourts();
 		startActivity(intent);
 		
 	}
