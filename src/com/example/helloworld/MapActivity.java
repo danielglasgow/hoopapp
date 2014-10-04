@@ -9,8 +9,10 @@ import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import android.support.v4.app.DialogFragment;
@@ -32,7 +34,8 @@ import android.widget.Toast;
 
 public class MapActivity extends FragmentActivity implements
 GooglePlayServicesClient.ConnectionCallbacks,
-GooglePlayServicesClient.OnConnectionFailedListener {
+GooglePlayServicesClient.OnConnectionFailedListener,
+OnMarkerClickListener{
 
 	   /* Define a request code to send to Google Play services
 	     * This code is returned in Activity.onActivityResult
@@ -248,5 +251,11 @@ GooglePlayServicesClient.OnConnectionFailedListener {
 		        (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 		// Builds the notification and issues it.
 		mNotifyMgr.notify(mNotificationId, mBuilder.build());
+	}
+
+	@Override
+	public boolean onMarkerClick(Marker marker) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }
