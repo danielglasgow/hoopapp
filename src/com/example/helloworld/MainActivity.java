@@ -24,6 +24,7 @@ public class MainActivity extends ActionBarActivity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
+		//Test change
 		getMenuInflater().inflate(R.menu.main, menu); //0 probably should not be 0
 		return true;
 	}
@@ -51,5 +52,9 @@ public class MainActivity extends ActionBarActivity {
 		//intent.putExtra("com.example.helloworld.courts", getNearbyCourts();
 		startActivity(intent);
 		
+	}
+	
+	public void testMethod() {
+		//this is a test method
 	}
 }
