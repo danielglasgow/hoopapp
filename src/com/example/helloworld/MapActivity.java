@@ -1,6 +1,9 @@
 package com.example.helloworld;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesClient;
 import com.google.android.gms.common.GooglePlayServicesUtil;
@@ -57,6 +60,7 @@ OnMarkerClickListener{
 			mMap.addMarker(new MarkerOptions()
 	        .position(court.location)
 	        .title(court.name()));
+			mMap.setOnMarkerClickListener(this);
 		}
 		
 	}
@@ -255,7 +259,10 @@ OnMarkerClickListener{
 
 	@Override
 	public boolean onMarkerClick(Marker marker) {
-		// TODO Auto-generated method stub
+		Intent intent = new Intent(this, CourtDetails.class);
+		intent.putExtra("com.example.helloworld.courts", new DetailTransfer(marker.getTitle()));
+		//intent.putExtra("com.example.helloworld.courts", getNearbyCourts();
+		startActivity(intent);
 		return false;
 	}
 }

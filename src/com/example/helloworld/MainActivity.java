@@ -54,7 +54,5 @@ public class MainActivity extends ActionBarActivity {
 		
 	}
 	
-	public void testMethod() {
-		//this is a test method
-	}
+
 }
