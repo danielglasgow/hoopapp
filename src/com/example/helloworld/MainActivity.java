@@ -1,8 +1,5 @@
 package com.example.helloworld;
 
-
-
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,6 +9,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 public class MainActivity extends ActionBarActivity {
 
@@ -19,6 +17,12 @@ public class MainActivity extends ActionBarActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		Intent i = getIntent();
+		String username = i.getStringExtra("com.example.helloworld.username");
+		TextView usernameView = (TextView) findViewById(R.id.username_disp);
+		usernameView.setText("Username: " + username);
+		
+		
 	}
 
 	@Override

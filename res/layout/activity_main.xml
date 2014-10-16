@@ -1,14 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal" >
-    
-      <Button
+
+    <TextView
+        android:id="@+id/username_disp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/find_courts_near_me" 
-        android:onClick="findCourts"/>
+        android:layout_marginTop="20dp"
+        android:text="Username: "
+        android:textSize="24sp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/username_disp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="78dp"
+        android:onClick="findCourts"
+        android:text="@string/find_courts_near_me" />
     
-</LinearLayout>
+</RelativeLayout>

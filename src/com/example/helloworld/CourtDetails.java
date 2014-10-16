@@ -2,64 +2,63 @@ package com.example.helloworld;
 
 import java.util.ArrayList;
 
-import android.support.v7.app.ActionBarActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
 public class CourtDetails extends ActionBarActivity {
 
+	private ListView playerListView;  
+	private ArrayAdapter<String> listAdapter;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_court_details);
-		Intent i = getIntent();
-		String courtId = i.getStringExtra("com.example.helloworld.courtdetail");
 		
+		Intent i = getIntent();
+		String courtId = i.getStringExtra("com.example.helloworld.courts");
 		// TODO: db call for court name
 		String courtName = courtId;
-		
-		// Create text view
 		TextView courtNameView = (TextView) findViewById(R.id.courtName);
 		courtNameView.setText(courtName);
 		
+		// Find the ListView resource.   
+	    playerListView = (ListView) findViewById(R.id.playerListView);
+	    
 		// TODO: db search for players at court
-		ArrayList<String> playersAtCourt = new ArrayList<String>();
-		playersAtCourt.add("Donald Glasgow");
-		playersAtCourt.add("Tim Hickey");
-		playersAtCourt.add("Justin Ballsack");
-		String players = "";
-		
-//		for(String player : playersAtCourt) {
-//			players += player + "\n";
-//		}
-//		
-//		TextView playersView = (TextView) findViewById(R.id.playerList);
-//		playersView.setText(players);
-		
-		LinearLayout rl = (LinearLayout) findViewById(R.id.court_layout);
-		
-		// TODO: players need to be clickable to view profile
-		for(String player : playersAtCourt) {
-			TextView temp = new TextView(this);
-			temp.setText(player);
-			temp.setClickable(true);
-			temp.setOnClickListener(new OnClickListener() {
-				@Override
-				public void onClick(View view) {
-					Intent intent = new Intent(CourtDetails.this, PlayerProfile.class);
-					intent.putExtra("com.example.helloworld.playername", ((TextView) view).getText());
-					startActivity(intent);
-				}
-			});
-			rl.addView(temp);
-		}
+	    // Create and populate list
+		ArrayList<String> players = new ArrayList<String>();
+		players.add("Donald Glasgow");
+		players.add("Tim Hickey");
+		players.add("Justin Barash");
+	  
+	    // Create ArrayAdapter using the planet list.   
+	    listAdapter = new ArrayAdapter<String>(this, R.layout.simplerow, players);  
+	      
+	    listAdapter.add("Karishma Pradhan");
+	      
+	    playerListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView <? > arg0, View view, int position, long id) {
+        		Intent intent = new Intent(CourtDetails.this, PlayerProfile.class);
+        		intent.putExtra("com.example.helloworld.playername", ((TextView) view).getText());
+        		startActivity(intent);
+        	}
+        });
+	    
+	    // Set the ArrayAdapter as the ListView's adapter.
+	    playerListView.setAdapter(listAdapter);
  	}
 
 	@Override

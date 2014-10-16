@@ -1,23 +1,63 @@
 package com.example.helloworld;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import android.support.v7.app.ActionBarActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup.LayoutParams;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
 public class PlayerProfile extends ActionBarActivity {
 
+	private ListView courtListView;  
+	private ArrayAdapter<String> listAdapter;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_player_profile);
+		
+		// Set title equal to name
 		Intent i = getIntent();
 		String pName = i.getStringExtra("com.example.helloworld.playername");
-		
 		TextView textView = (TextView) findViewById(R.id.pname);
 		textView.setText(pName);
+		
+		// Find the ListView resource.   
+	    courtListView = (ListView) findViewById(R.id.courtListView);  
+	  
+	    // Create and populate list
+		ArrayList<String> courts = new ArrayList<String>();
+		courts.add("Massell");
+		courts.add("Gosman");
+		courts.add("H-lot");
+	    
+	    // Create ArrayAdapter using the planet list.   
+	    listAdapter = new ArrayAdapter<String>(this, R.layout.simplerow, courts);  
+	      
+	    listAdapter.add("Example Court");
+	    
+	    courtListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView <? > arg0, View view, int position, long id) {
+        		Intent intent = new Intent(PlayerProfile.this, CourtDetails.class);
+        		intent.putExtra("com.example.helloworld.courts", ((TextView) view).getText());
+        		startActivity(intent);
+        	}
+        });
+	    
+	    // Set the ArrayAdapter as the ListView's adapter.  
+	    courtListView.setAdapter(listAdapter);
 	}
 
 	@Override

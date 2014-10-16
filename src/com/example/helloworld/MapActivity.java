@@ -260,7 +260,7 @@ OnMarkerClickListener{
 	@Override
 	public boolean onMarkerClick(Marker marker) {
 		Intent intent = new Intent(this, CourtDetails.class);
-		intent.putExtra("com.example.helloworld.courts", new DetailTransfer(marker.getTitle()));
+		intent.putExtra("com.example.helloworld.courts", marker.getTitle());
 		//intent.putExtra("com.example.helloworld.courts", getNearbyCourts();
 		startActivity(intent);
 		return false;
