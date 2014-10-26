@@ -1,20 +1,14 @@
 package com.example.helloworld;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-
 import android.support.v7.app.ActionBarActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.View.OnClickListener;
-import android.view.ViewGroup.LayoutParams;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -50,7 +44,7 @@ public class PlayerProfile extends ActionBarActivity {
 	    
 	    courtListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView <? > arg0, View view, int position, long id) {
-        		Intent intent = new Intent(PlayerProfile.this, CourtDetails.class);
+        		Intent intent = new Intent(PlayerProfile.this, CourtDetailsPage.class);
         		intent.putExtra("com.example.helloworld.courts", ((TextView) view).getText());
         		startActivity(intent);
         	}

@@ -47,6 +47,7 @@ OnMarkerClickListener{
 	            CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
 	    private LocationClient mLocationClient;
 	    private GoogleMap mMap;
+	    private List<Court> courts;
 	
 	@SuppressLint("NewApi") @Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -54,12 +55,13 @@ OnMarkerClickListener{
 		setContentView(R.layout.fragment_map);
 		MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
 		this.mMap = mapFragment.getMap();
-		CourtsTransferObject courts =  (CourtsTransferObject) getIntent().getExtras().get("com.example.helloworld.courts");
+		//CourtsTransferObject courts =  (CourtsTransferObject) getIntent().getExtras().get("com.example.helloworld.courts");
 		this.mLocationClient= new LocationClient(this, this, this);
-		for (Courts court :courts.courts) {
+		courts = ServerConnector.getInstance().getCourts();
+		for (Court court : courts) {
 			mMap.addMarker(new MarkerOptions()
 	        .position(court.location)
-	        .title(court.name()));
+	        .title(court.name));
 			mMap.setOnMarkerClickListener(this);
 		}
 		
@@ -259,8 +261,16 @@ OnMarkerClickListener{
 
 	@Override
 	public boolean onMarkerClick(Marker marker) {
-		Intent intent = new Intent(this, CourtDetails.class);
-		intent.putExtra("com.example.helloworld.courts", marker.getTitle());
+		//maker object should have id attached... avoid looping and selecting via name which is not necessarily unique
+		Intent intent = new Intent(this, CourtDetailsPage.class);
+		int id = 0;
+		for (Court court : courts) {
+			if (court.name.equals(marker.getTitle())) {
+				id = court.id;
+			}
+			break;
+		}
+		intent.putExtra("com.example.helloworld.courts", "" + id);
 		//intent.putExtra("com.example.helloworld.courts", getNearbyCourts();
 		startActivity(intent);
 		return false;

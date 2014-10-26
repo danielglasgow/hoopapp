@@ -36,7 +36,7 @@
             android:label="@string/title_activity_map" >
         </activity>
         <activity
-            android:name=".CourtDetails"
+            android:name=".CourtDetailsPage"
             android:label="@string/title_activity_court_details" >
         </activity>
         <activity
