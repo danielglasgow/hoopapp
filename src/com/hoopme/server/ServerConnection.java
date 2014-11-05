@@ -23,7 +23,7 @@ import com.hoopme.objects.CourtDetails;
 
 public class ServerConnection implements ServerInterface {
 	
-	private static final String IP = "129.64.208.136";
+	private static final String IP = "129.64.181.83";
 	
 	private final HttpClient httpclient;
 	

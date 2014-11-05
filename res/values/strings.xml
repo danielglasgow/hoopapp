@@ -10,5 +10,13 @@
     <string name="title_activity_player_profile">PlayerProfile</string>
     <string name="title_activity_login">Login</string>
     <string name="title_activity_create_profile">CreateProfile</string>
-
+    <string-array name="positions">
+		<item>Point Guard</item>
+        <item>Shooting Guard</item>
+        <item>Small Forward</item>
+        <item>Power Forward</item>
+        <item>Center</item>
+    </string-array>
+    
+    
 </resources>

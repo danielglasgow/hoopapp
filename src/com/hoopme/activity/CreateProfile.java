@@ -2,18 +2,76 @@ package com.hoopme.activity;
 
 import com.hoopme.activity.R;
 
-import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.SeekBar;
+import android.widget.SeekBar.OnSeekBarChangeListener;
+import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
 
 public class CreateProfile extends ActionBarActivity {
 
+
+	private String name;
+	private String password;
+	private String birthday;
+	private int skillLevel;
+	private SeekBar skillBar;
+	private Spinner spinner;
+	private String position;
+
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		Log.d("CreateProfile", "At create acc");
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_create_profile);
+		
+		// Seek bar for skill level
+		Log.d("CreateProfile", "Creating skill bar");
+		skillBar = (SeekBar) findViewById(R.id.skill_seekbar);
+		skillLevel = 1;
+		Log.d("CreateProfile", "Creating skill bar2");
+		skillBar.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
+			
+			public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser){
+				TextView skill_label = (TextView) findViewById(R.id.skill_label);
+				skill_label.setText("Skill level: " + (progress+1));
+				skillLevel = progress;
+			}
+
+			public void onStartTrackingTouch(SeekBar seekBar) {
+				// TODO Auto-generated method stub
+			}
+
+			public void onStopTrackingTouch(SeekBar seekBar) {
+				/**Toast.makeText(CreateProfile.this,"seek bar progress:"+progressChanged, 
+						Toast.LENGTH_SHORT).show(); */
+			}
+		});
+		
+		// Spinner for preferred position
+		Log.d("CreateProfile", "Creating position spinner");
+		spinner = (Spinner) findViewById(R.id.position_spinner);
+		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.positions, android.R.layout.simple_spinner_item);
+		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		spinner.setAdapter(adapter);
+//		spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//			public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+//			     String position = parent.getItemAtPosition(pos).toString();
+//		    }
+//		    public void onNothingSelected(AdapterView<?> parent) {
+//			}
+//		});
+		
 	}
 
 	@Override
@@ -35,8 +93,30 @@ public class CreateProfile extends ActionBarActivity {
 		return super.onOptionsItemSelected(item);
 	}
 	
-	// TODO: when user submits information - must validate
+	// TODO: when user submits information - must validate and send to DB
 	public void onSubmit(View view) {
+		
+		// Name
+		EditText name_input = (EditText) findViewById(R.id.name_input);
+		name = name_input.getText().toString();
+		Log.d("CreateProfile", "Name: " + name);
+	
+		// Password
+		EditText password_input = (EditText) findViewById(R.id.password_input);
+		password = password_input.getText().toString();
+		Log.d("CreateProfile", "Password: " + password);
+			
+		// Position
+		position = spinner.getSelectedItem().toString();
+		Log.d("CreateProfile", "Spinner position: " + position);
+	
+		// Birthday
+		EditText birthday_input = (EditText) findViewById(R.id.birthday_input);
+		birthday = birthday_input.getText().toString();
+		Log.d("CreateProfile", "Birthday: " + birthday);
+		
+		// Skill Level
+		Log.d("CreateProfile", "Skill level: " + skillLevel);
 		
 	}
 }

@@ -60,12 +60,14 @@
         android:textSize="20sp" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/createAccount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView2"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="18dp"
+        android:onClick="onCreateAccount"
+        android:clickable="true"
         android:text="Click here to create an account."
         android:textColor="#0000FF"
         android:textSize="18sp" />

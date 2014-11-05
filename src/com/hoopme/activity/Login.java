@@ -1,10 +1,8 @@
 package com.hoopme.activity;
 
-import com.hoopme.activity.R;
-
+import android.support.v7.app.ActionBarActivity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -15,9 +13,9 @@ public class Login extends ActionBarActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		Log.i("Login", "Open to login screen");
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
-		Log.i("Login", "Open to login screen");
 	}
 
 	@Override
@@ -50,9 +48,9 @@ public class Login extends ActionBarActivity {
 		startActivity(intent);
 	}
 	
-	public void onCreate (View view) {
-		Intent intent = new Intent(this, CreateProfile.class);
+	public void onCreateAccount (View view) {
 		Log.i("Login", "Click to create an account");
+		Intent intent = new Intent(this, CreateProfile.class);
 		startActivity(intent);
 	}
 }
