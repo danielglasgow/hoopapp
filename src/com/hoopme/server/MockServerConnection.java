@@ -14,8 +14,8 @@ public class MockServerConnection implements ServerInterface {
 	@Override
 	public CourtDetails getCourtDetails(int courtId) {
 		CourtDetails courtDetails = new CourtDetails("Massel");
-		courtDetails.playersAtCourt.add(new Player(1, "dani"));
-		courtDetails.playersAtCourt.add(new Player(2, "danny"));
+		courtDetails.playersAtCourt.add(new Player(1, "dani", "birthday", "password", 5, "position"));
+		courtDetails.playersAtCourt.add(new Player(2, "danny", "birthday", "password", 5, "position"));
 		return courtDetails;
 	}
 
