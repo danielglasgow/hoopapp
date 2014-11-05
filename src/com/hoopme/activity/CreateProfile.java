@@ -1,8 +1,12 @@
 package com.hoopme.activity;
 
+import org.json.JSONObject;
+
 import com.hoopme.activity.R;
+import com.hoopme.objects.Player;
 
 import android.support.v7.app.ActionBarActivity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -117,6 +121,15 @@ public class CreateProfile extends ActionBarActivity {
 		
 		// Skill Level
 		Log.d("CreateProfile", "Skill level: " + skillLevel);
+		
+		Player p = new Player(32, name, birthday, password, skillLevel, position);
+		JSONObject playerObject = Player.toJSON(p);
+		//TODO: Send to database
+		
+		Intent intent = new Intent(this, MainActivity.class);
+		intent.putExtra("com.hoopme.activity.username", name);
+		
+		startActivity(intent);
 		
 	}
 }

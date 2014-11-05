@@ -44,7 +44,7 @@ public class Login extends ActionBarActivity {
 		EditText password_text = (EditText) findViewById(R.id.password);
 		Log.i("Login", "Username: " + username_text.getText().toString());
 		Log.i("Login", "Password: " + password_text.getText().toString());
-		intent.putExtra("com.example.helloworld.username", username_text.getText().toString());
+		intent.putExtra("com.hoopme.activity.username", username_text.getText().toString());
 		startActivity(intent);
 	}
 	

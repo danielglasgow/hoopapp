@@ -17,7 +17,7 @@ public class MainActivity extends ActionBarActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		Intent i = getIntent();
-		String username = i.getStringExtra("com.example.helloworld.username");
+		String username = i.getStringExtra("com.hoopme.activity.username");
 		TextView usernameView = (TextView) findViewById(R.id.username_disp);
 		usernameView.setText("Username: " + username);
 		
@@ -49,6 +49,12 @@ public class MainActivity extends ActionBarActivity {
 		Intent intent = new Intent(this, MapActivity.class);
 		startActivity(intent);
 		
+	}
+	
+	public void addNewCourt(View view) {
+		// TODO: make a new class for dropping a pin on the map and storing it as a new court
+		//Intent intent = new Intent(this, MapActivity.class);
+		//startActivity(intent);		
 	}
 	
 

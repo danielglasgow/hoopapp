@@ -34,4 +34,21 @@ public class Player implements FromJSON {
 		}
 		return null;
 	}
+	
+	
+	public static JSONObject toJSON(Player p) {
+		JSONObject json = new JSONObject();
+		try {
+			json.put("id", p.id);
+			json.put("name", p.name);
+			json.put("password", p.password);
+			json.put("bdate", p.bdate);
+			json.put("skill", p.skill);
+			json.put("position", p.position);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+
+		return json;
+	}
 }
