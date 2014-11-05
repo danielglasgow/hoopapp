@@ -1,6 +1,7 @@
 package com.example.helloworld;
 
 import java.util.ArrayList;
+import com.hoopme.activity.R;
 import java.util.List;
 
 import android.support.v7.app.ActionBarActivity;

@@ -1,6 +1,7 @@
 package com.example.helloworld;
 
 import android.support.v7.app.ActionBarActivity;
+import com.hoopme.activity.R;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
