@@ -1,13 +1,13 @@
 package com.hoopme.objects;
 
-import java.util.Date;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.hoopme.JSON.FromJSON;
+import com.hoopme.JSON.ToJSON;
 
-public class Player implements FromJSON {
+public class Player implements FromJSON, ToJSON {
 
 	public final int id;
 	public final String name;
@@ -24,7 +24,26 @@ public class Player implements FromJSON {
 		this.skill = skill;
 		this.position = position;
 	}
-
+	
+	@Override
+	public JSONObject toJSON() {
+		JSONObject json = new JSONObject();
+		try {
+			json.put("id", id);
+			json.put("name", name);
+			json.put("password", password);
+			json.put("bdate", bdate);
+			json.put("skill", skill);
+			json.put("position", position);
+			return json;
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	
+	
 	public static FromJSON fromJSON(JSONObject json) {
 		try {
 			return new Player(json.getInt("id"), json.getString("name"), json.getString("password"), 
@@ -33,22 +52,5 @@ public class Player implements FromJSON {
 			e.printStackTrace();
 		}
 		return null;
-	}
-	
-	
-	public static JSONObject toJSON(Player p) {
-		JSONObject json = new JSONObject();
-		try {
-			json.put("id", p.id);
-			json.put("name", p.name);
-			json.put("password", p.password);
-			json.put("bdate", p.bdate);
-			json.put("skill", p.skill);
-			json.put("position", p.position);
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
-
-		return json;
 	}
 }
