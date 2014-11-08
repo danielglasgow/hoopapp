@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    
+    <TextView
+        android:id="@+id/courtName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Court Name"
+        android:textAppearance="?android:attr/textAppearanceLarge"/>
+    
+ 	<TextView
+        android:id="@+id/players_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0 users currently at court:"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+ 	
+ 	<ListView 
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/playerListView">
+    </ListView>
+ 	    
+</LinearLayout>
+

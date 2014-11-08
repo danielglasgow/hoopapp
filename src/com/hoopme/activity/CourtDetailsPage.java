@@ -4,6 +4,9 @@ import java.util.ArrayList;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,49 +22,27 @@ import com.hoopme.objects.Player;
 import com.hoopme.server.ServerConnectionProxy;
 import com.hoopme.server.ServerInterface;
 
-public class CourtDetailsPage extends ActionBarActivity {
-
-	private ListView playerListView;  
-	private ArrayAdapter<String> listAdapter;
-	
+public class CourtDetailsPage extends FragmentActivity {
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_court_details);
-		
-		Intent i = getIntent();
-		int courtId = Integer.parseInt(i.getStringExtra("com.example.helloworld.courts"));
-		ServerInterface serverConnection = ServerConnectionProxy.getInstance();
-		CourtDetails courtDetails = serverConnection.getCourtDetails(courtId);
-		// TODO: db call for court name
-		String courtName = courtDetails.name;
-		TextView courtNameView = (TextView) findViewById(R.id.courtName);
-		courtNameView.setText(courtName);
-		
-		// Find the ListView resource.   
-	    playerListView = (ListView) findViewById(R.id.playerListView);
 	    
-		// TODO: db search for players at court
-	    // Create and populate list
-		ArrayList<String> players = new ArrayList<String>();
-		for (Player player : courtDetails.playersAtCourt) {
-			players.add(player.name);
-		}
-	  
-	    // Create ArrayAdapter using the planet list.   
-	    listAdapter = new ArrayAdapter<String>(this, R.layout.simplerow, players);
-	      
-	    playerListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView <? > arg0, View view, int position, long id) {
-        		Intent intent = new Intent(CourtDetailsPage.this, PlayerProfile.class);
-        		intent.putExtra("com.example.helloworld.playername", ((TextView) view).getText());
-        		startActivity(intent);
-        	}
-        });
-	    
-	    // Set the ArrayAdapter as the ListView's adapter.
-	    playerListView.setAdapter(listAdapter);
+        // Create a new Fragment to be placed in the activity layout
+        Fragment courtDetailsFragment = new CourtDetailsFragment();
+        Fragment scheduleFragment = new ScheduleFragment();
+        
+        // In case this activity was started with special instructions from an
+        // Intent, pass the Intent's extras to the fragment as arguments
+        // fragment.setArguments(getIntent().getExtras());
+        FragmentTransaction transaction = 
+                getSupportFragmentManager().beginTransaction();
+
+        // Add the fragment to the 'fragment_container' FrameLayout
+        transaction.add(R.id.court_details_container, courtDetailsFragment);
+        transaction.add(R.id.schedule_container, scheduleFragment);     
+        transaction.commit();
  	}
 
 	@Override
