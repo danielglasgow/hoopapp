@@ -57,11 +57,12 @@ public class CourtDetailsFragment extends Fragment {
     	TextView courtNameView = (TextView) V.findViewById(R.id.courtName);
     	courtNameView.setText(courtName);
     	
-    	Log.d("CourtDetailsFragment", "Populating player list");
+    	Log.d("CourtDetailsFragment", "Populating times list");
 
     	// Find the ListView resource.   
     	playerListView = (ListView) V.findViewById(R.id.playerListView);
 
+    	
     	// TODO: db search for players at court
     	// Create and populate list
     	ArrayList<String> players = new ArrayList<String>();
