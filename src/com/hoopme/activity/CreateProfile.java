@@ -122,8 +122,8 @@ public class CreateProfile extends ActionBarActivity {
 		// Skill Level
 		Log.d("CreateProfile", "Skill level: " + skillLevel);
 		
-		Player p = new Player(32, name, birthday, password, skillLevel, position);
-		JSONObject playerObject = Player.toJSON(p);
+		Player player = new Player(32, name, birthday, password, skillLevel, position);
+		JSONObject playerObject = player.toJSON();
 		//TODO: Send to database
 		
 		Intent intent = new Intent(this, MainActivity.class);
