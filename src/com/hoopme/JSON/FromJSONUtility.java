@@ -10,6 +10,8 @@ import org.json.JSONObject;
 import com.hoopme.objects.Court;
 import com.hoopme.objects.CourtDetails;
 import com.hoopme.objects.Player;
+import com.hoopme.objects.PlayerView;
+import com.hoopme.objects.Timeline;
 
 public class FromJSONUtility {
 
@@ -61,5 +63,33 @@ public class FromJSONUtility {
 			}	
 		};
 	}
+	
+	public static FromJSONFactory getTimelineFactory() {
+		return new FromJSONFactory() {
+			@Override
+			public FromJSON fromJSON(JSONObject json) {
+				return Timeline.fromJSON(json);
+			}	
+		};
+	}
+
+	public static FromJSONFactory getPlayersAtTimeFactory() {
+		return new FromJSONFactory() {
+			@Override
+			public FromJSON fromJSON(JSONObject json) {
+				return Timeline.PlayersAtTime.fromJSON(json);
+			}	
+		};
+	}
+
+	public static FromJSONFactory getPlayerViewFactory() {
+		return new FromJSONFactory() {
+			@Override
+			public FromJSON fromJSON(JSONObject json) {
+				return PlayerView.fromJSON(json);
+			}	
+		};
+	}
+
 	
 }

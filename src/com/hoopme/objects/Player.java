@@ -9,12 +9,12 @@ import com.hoopme.JSON.ToJSON;
 
 public class Player implements FromJSON, ToJSON {
 
-	public final int id;
-	public final String name;
-	public String password;
-	public String bdate;
-	public int skill;
-	public String position;
+	private final int id;
+	private final String name;
+	private String password;
+	private String bdate;
+	private int skill;
+	private String position;
 	
 	public Player(int id, String name, String bdate, String password, int skill, String position) {
 		this.id = id;
@@ -52,5 +52,45 @@ public class Player implements FromJSON, ToJSON {
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getBdate() {
+		return bdate;
+	}
+
+	public void setBdate(String bdate) {
+		this.bdate = bdate;
+	}
+
+	public int getSkill() {
+		return skill;
+	}
+
+	public void setSkill(int skill) {
+		this.skill = skill;
+	}
+
+	public String getPosition() {
+		return position;
+	}
+
+	public void setPosition(String position) {
+		this.position = position;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public String getName() {
+		return name;
 	}
 }

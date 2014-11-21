@@ -53,7 +53,7 @@ public class CourtDetailsFragment extends Fragment {
     	
     	Log.d("CourtDetailsFragment", "Populating court name");
 
-    	String courtName = courtDetails.name;
+    	String courtName = courtDetails.getName();
     	TextView courtNameView = (TextView) V.findViewById(R.id.courtName);
     	courtNameView.setText(courtName);
     	
@@ -66,8 +66,8 @@ public class CourtDetailsFragment extends Fragment {
     	// TODO: db search for players at court
     	// Create and populate list
     	ArrayList<String> players = new ArrayList<String>();
-    	for (Player player : courtDetails.playersAtCourt) {
-    		players.add(player.name);
+    	for (Player player : courtDetails.getPlayersAtCourt()) {
+    		players.add(player.getName());
     	}
     	
     	TextView players_label = (TextView) V.findViewById(R.id.players_label);

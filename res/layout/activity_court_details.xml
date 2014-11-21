@@ -1,10 +1,11 @@
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/RelativeLayout1"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical" >
-    
-    <FrameLayout
+
+    <!--
+         <FrameLayout
         android:id="@+id/court_details_container"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
@@ -13,5 +14,45 @@
         android:id="@+id/schedule_container"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
-    
-</LinearLayout>
+    -->
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/players_label"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="42dp"
+        android:onClick="onViewSchedule"
+        android:text="View Schedule" />
+
+    <TextView
+        android:id="@+id/courtName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="34dp"
+        android:text="Court Name"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/players_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/courtName"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:text="0 users currently at court:"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <Button
+        android:id="@+id/subscribe_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:text="Subscribe to this court"
+        android:onClick="onSubscribe"/>
+
+</RelativeLayout>

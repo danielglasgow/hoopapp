@@ -7,7 +7,7 @@
    	android:orientation="vertical">
    	
     <CalendarView
-        android:id="@+id/calendar"
+        android:id="@+id/calendar2"
         android:layout_width="288dp"
         android:layout_height="124dp" />
     
@@ -16,18 +16,6 @@
         android:layout_height="fill_parent"
         android:id="@+id/timesListView">
     </ListView>
-    
-<!--     <TextView -->
-<!--         android:id="@+id/time_12pm" -->
-<!--         android:layout_width="wrap_content" -->
-<!--         android:layout_height="wrap_content" -->
-<!--         android:text="12:00 PM - 0 players" /> -->
-    
-<!--     <TextView -->
-<!--         android:id="@+id/time_1pm" -->
-<!--         android:layout_width="wrap_content" -->
-<!--         android:layout_height="wrap_content" -->
-<!--         android:text="1:00 PM - 0 players" /> -->
     
 </LinearLayout>
    

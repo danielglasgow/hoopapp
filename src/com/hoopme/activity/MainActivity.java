@@ -17,7 +17,7 @@ public class MainActivity extends ActionBarActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		Intent i = getIntent();
-		String username = i.getStringExtra("com.hoopme.activity.username");
+		String username = i.getStringExtra("com.hoopme.username");
 		TextView usernameView = (TextView) findViewById(R.id.username_disp);
 		usernameView.setText("Username: " + username);
 		

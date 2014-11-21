@@ -1,6 +1,7 @@
 package com.hoopme.activity;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,28 +24,47 @@ import com.hoopme.objects.Player;
 import com.hoopme.server.ServerConnectionProxy;
 import com.hoopme.server.ServerInterface;
 
-public class CourtDetailsPage extends FragmentActivity {
+public class CourtDetailsPage extends ActionBarActivity {
+	
+	private int courtId;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+    	Log.d("CourtDetails", "Creating view");
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_court_details);
 	    
-        // Create a new Fragment to be placed in the activity layout
-        Fragment courtDetailsFragment = new CourtDetailsFragment();
-        Fragment scheduleFragment = new ScheduleFragment();
-        
-        // In case this activity was started with special instructions from an
-        // Intent, pass the Intent's extras to the fragment as arguments
-        // fragment.setArguments(getIntent().getExtras());
-        FragmentTransaction transaction = 
-                getSupportFragmentManager().beginTransaction();
+		Log.d("CourtDetails", "Receiving intents");
+    	Intent intent = getIntent();
+    	courtId = intent.getIntExtra("com.hoopme.courtId", 0);
 
-        // Add the fragment to the 'fragment_container' FrameLayout
-        transaction.add(R.id.court_details_container, courtDetailsFragment);
-        transaction.add(R.id.schedule_container, scheduleFragment);     
-        transaction.commit();
- 	}
+    	Log.d("CourtDetails", "Getting court details from server");
+    	ServerInterface serverConnection = ServerConnectionProxy.getInstance();
+    	CourtDetails courtDetails = serverConnection.getCourtDetails(courtId);
+
+    	Log.d("CourtDetails", "Populating court name view");
+    	TextView courtNameView = (TextView) findViewById(R.id.courtName);
+    	courtNameView.setText(courtDetails.getName());
+    	
+    	Log.d("CourtDetails", "Populating players label");
+       	TextView players_label = (TextView) findViewById(R.id.players_label);
+       	List<Player> players = courtDetails.getPlayersAtCourt();
+       	
+       	// Clicking on players label bring to playersAtCourt activity
+    	Log.d("CourtDetails", "Setting clickable for players label");
+    	players_label.setOnClickListener(new View.OnClickListener() {
+    	    @Override
+    	    public void onClick(View v) {
+    	    	// TODO: Link to correct page
+    	    	Intent intent = new Intent(CourtDetailsPage.this, PlayersAtCourt.class);
+    	    	intent.putExtra("com.hoopme.courtId", courtId);
+    	    	startActivity(intent);
+    	    }
+    	});
+    	players_label.setText("" + players.size() + " users currently at court:");
+
+    	
+	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -62,5 +83,15 @@ public class CourtDetailsPage extends FragmentActivity {
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+	
+	public void onViewSchedule(View view) {
+		Intent intent = new Intent(this, CourtSchedule.class);
+		intent.putExtra("com.hoopme.courtId", courtId);
+		startActivity(intent);
+	}
+	
+	public void onSubscribe(View view) {
+		// TODO: Post call - update DB information
 	}
 }

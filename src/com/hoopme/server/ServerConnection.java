@@ -9,6 +9,7 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.joda.time.DateTime;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -20,6 +21,7 @@ import android.util.Log;
 import com.hoopme.JSON.FromJSONUtility;
 import com.hoopme.objects.Court;
 import com.hoopme.objects.CourtDetails;
+import com.hoopme.objects.Timeline;
 
 public class ServerConnection implements ServerInterface {
 	
@@ -73,6 +75,30 @@ public class ServerConnection implements ServerInterface {
 			}
 			Log.d("Server", out);
 			return FromJSONUtility.JSONArrayToList(FromJSONUtility.getCourtFacotry(), jsonArray);
+		} catch (ClientProtocolException e) {
+			Log.e("Get fail", e.toString());
+		} catch (IOException e) {
+			Log.e("Get fail", e.toString());
+		}
+		return null;
+	}
+	
+
+	public Timeline getTimeline(DateTime date, int courtId) {
+		// TODO: FIX URL
+		String url = "http://" + IP + ":8080/HoopMe/Schedule?id=" + courtId + "date=" + date.toString();
+		HttpGet httpget = new HttpGet(url);
+		try {
+			HttpResponse response = httpclient.execute(httpget);
+			String out = new BasicResponseHandler().handleResponse(response);
+			JSONObject json = null;
+			try {
+				json = new JSONObject(out);
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+			Log.d("Server", out);
+			return (Timeline) FromJSONUtility.getTimelineFactory().fromJSON(json);
 		} catch (ClientProtocolException e) {
 			Log.e("Get fail", e.toString());
 		} catch (IOException e) {

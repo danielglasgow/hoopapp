@@ -10,13 +10,16 @@
     <string name="title_activity_player_profile">PlayerProfile</string>
     <string name="title_activity_login">Login</string>
     <string name="title_activity_create_profile">CreateProfile</string>
+
     <string-array name="positions">
-		<item>Point Guard</item>
+        <item>Point Guard</item>
         <item>Shooting Guard</item>
         <item>Small Forward</item>
         <item>Power Forward</item>
         <item>Center</item>
     </string-array>
-    
-    
+
+    <string name="title_activity_court_schedule">CourtSchedule</string>
+    <string name="title_activity_players_at_court">PlayersAtCourt</string>
+
 </resources>

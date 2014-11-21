@@ -1,10 +1,17 @@
 package com.hoopme.activity;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+
+import org.joda.time.DateTime;
 
 import com.hoopme.activity.R;
+import com.hoopme.objects.CourtDetails;
 import com.hoopme.objects.Player;
+import com.hoopme.objects.Time;
 import com.hoopme.objects.Timeline;
+import com.hoopme.server.ServerConnectionProxy;
+import com.hoopme.server.ServerInterface;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -42,42 +49,21 @@ public class ScheduleFragment extends Fragment{
 
     	// Find the ListView resource.  
 		Log.d("ScheduleFragment", "Finding list view");
+		
     	timesListView = (ListView) V.findViewById(R.id.timesListView);
-
-    	// TODO: db search for players at court
-		Log.d("ScheduleFragment", "Creating timeline");
-		//"" + (month+1) + "/" + day + "/" + year
-    	Timeline time = new Timeline();
     	
-		Log.d("ScheduleFragment", "Populating times list");
-    	ArrayList<String> times = new ArrayList<String>();
-    	for(int i = 0; i < 24; i++) {
-    		times.add(i, "" + i + ":00 - " + time.getNumPlayersAtTime(i) + " players");
-    	}
-    	
-		Log.d("ScheduleFragment", "set listAdapter to times");
-
-    	// Create ArrayAdapter using the times list.   
-    	listAdapter = new ArrayAdapter<String>(getActivity(), R.layout.simplerow, times);
-    	
-    	timesListView.setAdapter(listAdapter);
-
-//    	timesListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//    	    public void onItemClick(AdapterView <? > arg0, View view, int position, long id) {
-//    	    	// TODO: onClick
-//    		}
-//    	});
+    	// Get current date, set schedule to show
+    	DateTime currentDate = new DateTime();
+    	Log.d("Calendar", "Date: " + currentDate.getMonthOfYear() + "/" + currentDate.getDayOfMonth() + "/" + currentDate.getYear());
+		setListViewByDate(timesListView, currentDate);
     	
     	calendar.setOnDateChangeListener(new OnDateChangeListener() {
     		public void onSelectedDayChange(CalendarView view, int year, int month, int day) {
     			Toast.makeText(getActivity().getApplicationContext(), (month+1) + "/" + day + "/" + year, Toast.LENGTH_LONG).show();
     			// TODO: make database call for schedule for the day
-//    			TextView time_12pm = (TextView) getView().findViewById(R.id.time_12pm);
-//    			time_12pm.setText("12:00 PM - " + (day%3 + month%2) + " players");
-//    			TextView time_1pm = (TextView) getView().findViewById(R.id.time_1pm);
-//    			time_1pm.setText("1:00 PM - " + (day%3+1) + " players");
-    			
-
+    			// String dateString = ""+ (month+1) + "/" + day + "/" + year;
+    			DateTime date = new DateTime(year, (month+1), day, 0, 0);
+    			setListViewByDate(timesListView, date);
     		}
     	});
     	
@@ -87,4 +73,38 @@ public class ScheduleFragment extends Fragment{
 	    return V;
 	}
 	
+	
+	/** Sets the listView to display the schedule at a certain date */
+	public void setListViewByDate(ListView timesListView, DateTime date) {
+    	
+		Log.d("ScheduleFragment", "Creating timeline for " + date.toString());
+
+		// TODO: get courtId
+		int courtId = 0;
+		
+    	ServerInterface serverConnection = ServerConnectionProxy.getInstance();
+    	
+    	Log.d("ScheduleFragment", "Populating timeline");
+    	Timeline times = serverConnection.getTimeline(date, courtId);
+		Log.d("ScheduleFragment", "Creating schedule from timeline");
+		ArrayList<String> schedule = new ArrayList<String>();
+		Log.d("ScheduleFragment", "Timeline: " + times.toString());
+		
+		for(int i = 0; i < 24; i ++) {
+			Time time = new Time(i, 0);
+			// Log.d("ScheduleFragment", "" + i + ":00 - " + times.getNumberPlayersAtTime(time) + " players");
+			schedule.add("" + i + ":00 - " + times.getNumberPlayersAtTime(time) + " players");
+		}
+		
+    	listAdapter = new ArrayAdapter<String>(getActivity(), R.layout.simplerow, schedule);
+    	timesListView.setAdapter(listAdapter);
+
+    	Log.d("ScheduleFragment", "Setting onClick for listview");
+    	timesListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+    		public void onItemClick(AdapterView <? > arg0, View view, int position, long id) {
+    	    	// TODO: onClick
+    		}
+    	});
+	}
+		
 }

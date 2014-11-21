@@ -13,8 +13,8 @@ import com.hoopme.JSON.FromJSONUtility;
 
 public class CourtDetails implements FromJSON {
 
-	public final List<Player> playersAtCourt;
-	public final String name;
+	private final List<Player> playersAtCourt;
+	private final String name;
 	
 	public CourtDetails(String name, List<Player> playersAtCourt) {
 		this.playersAtCourt = playersAtCourt;
@@ -38,5 +38,13 @@ public class CourtDetails implements FromJSON {
 		List<Player> players = FromJSONUtility.JSONArrayToList(playerFactory, jsonArray);
 		return new CourtDetails(name, players);
 		
+	}
+
+	public List<Player> getPlayersAtCourt() {
+		return playersAtCourt;
+	}
+
+	public String getName() {
+		return name;
 	}
 }
