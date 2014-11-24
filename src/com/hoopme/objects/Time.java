@@ -63,7 +63,26 @@ public class Time {
 	}
 	
 	public String toString() {
-		return "" + this.getHour() + ":" + this.getMinute();
+		int hour = this.getHour();
+		int minute = this.getMinute();
+		String minuteString = Integer.toString(minute);
+		String ampm = "";
+		if (this.getMinute() < 10) {
+			minuteString += "0";
+		}
+		if (hour == 0) {
+			hour = 12;
+		}
+		if (hour < 12) {
+			ampm = "AM";
+		} else {
+			if (hour != 12) {
+				hour -= 12;
+			}
+			ampm = "PM";
+		}
+		String hourString = Integer.toString(minute);
+		return hourString + ":" + minuteString + " " + ampm;
 	}
 
 	public int getHour() {
@@ -73,4 +92,5 @@ public class Time {
 	public int getMinute() {
 		return minute;
 	}
+	
 }

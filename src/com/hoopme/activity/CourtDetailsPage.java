@@ -49,6 +49,17 @@ public class CourtDetailsPage extends ActionBarActivity {
     	Log.d("CourtDetails", "Populating players label");
        	TextView players_label = (TextView) findViewById(R.id.players_label);
        	List<Player> players = courtDetails.getPlayersAtCourt();
+       	String playersString = "";
+       	if (players.size() == 1) {
+       		playersString = players.get(0).getName() + " is currently at court";
+       	} else if (players.size() == 2) {
+       		playersString = players.get(0).getName() + " and " +
+       				players.get(1).getName() + " are currently at court";
+       	} else {
+       		playersString = players.get(0).getName() + ", " + players.get(1).getName() + 
+       				" and " + players.size() + " other users are currently at court";
+       	}
+    	players_label.setText(playersString);
        	
        	// Clicking on players label bring to playersAtCourt activity
     	Log.d("CourtDetails", "Setting clickable for players label");
@@ -61,7 +72,6 @@ public class CourtDetailsPage extends ActionBarActivity {
     	    	startActivity(intent);
     	    }
     	});
-    	players_label.setText("" + players.size() + " users currently at court:");
 
     	
 	}
@@ -81,6 +91,9 @@ public class CourtDetailsPage extends ActionBarActivity {
 		int id = item.getItemId();
 		if (id == R.id.action_settings) {
 			return true;
+		} else if (id == R.id.action_home) {
+			Intent intent = new Intent(this, MainActivity.class);
+			startActivity(intent);
 		}
 		return super.onOptionsItemSelected(item);
 	}

@@ -78,18 +78,18 @@ OnMarkerClickListener{
 
 	
 	 @Override
-	    protected void onStart() {
-	        super.onStart();
-	        // Connect the client.
-	        mLocationClient.connect();
-	    }
+    protected void onStart() {
+        super.onStart();
+        // Connect the client.
+        mLocationClient.connect();
+    }
 	 
 	 @Override
-	    protected void onStop() {
-	        // Disconnecting the client invalidates it.
-	        mLocationClient.disconnect();
-	        super.onStop();
-	    }
+    protected void onStop() {
+        // Disconnecting the client invalidates it.
+        mLocationClient.disconnect();
+        super.onStop();
+    }
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -106,6 +106,9 @@ OnMarkerClickListener{
 		int id = item.getItemId();
 		if (id == R.id.action_settings) {
 			return true;
+		} else if (id == R.id.action_home) {
+			Intent intent = new Intent(this, MainActivity.class);
+			startActivity(intent);
 		}
 		return super.onOptionsItemSelected(item);
 	}

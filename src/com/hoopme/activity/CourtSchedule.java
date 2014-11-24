@@ -10,6 +10,7 @@ import com.hoopme.server.ServerConnectionProxy;
 import com.hoopme.server.ServerInterface;
 
 import android.support.v7.app.ActionBarActivity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -37,10 +38,10 @@ public class CourtSchedule extends ActionBarActivity {
     	
 		CalendarView calendar = (CalendarView) findViewById(R.id.calendar);
     	calendar.setShowWeekNumber(false);
-    	Log.d("ScheduleFragment", "setShowWeekNumber: " + calendar.getShowWeekNumber());
+    	Log.d("Schedule", "setShowWeekNumber: " + calendar.getShowWeekNumber());
 
     	// Find the ListView resource.  
-		Log.d("ScheduleFragment", "Finding list view");
+		Log.d("Schedule", "Finding list view");
 		
     	timesListView = (ListView) findViewById(R.id.timesListView);
     	
@@ -74,6 +75,9 @@ public class CourtSchedule extends ActionBarActivity {
 		int id = item.getItemId();
 		if (id == R.id.action_settings) {
 			return true;
+		} else if (id == R.id.action_home) {
+			Intent intent = new Intent(this, MainActivity.class);
+			startActivity(intent);
 		}
 		return super.onOptionsItemSelected(item);
 	}
@@ -81,31 +85,32 @@ public class CourtSchedule extends ActionBarActivity {
 	/** Sets the listView to display the schedule at a certain date */
 	public void setListViewByDate(ListView timesListView, DateTime date) {
     	
-		Log.d("ScheduleFragment", "Creating timeline for " + date.toString());
+		Log.d("Schedule", "Creating timeline for " + date.toString());
     	ServerInterface serverConnection = ServerConnectionProxy.getInstance();
     	
-    	Log.d("ScheduleFragment", "Populating timeline");
+    	Log.d("Schedule", "Populating timeline");
     	Timeline times = serverConnection.getTimeline(date, courtId);
-		Log.d("ScheduleFragment", "Creating schedule from timeline");
+		Log.d("Schedule", "Creating schedule from timeline");
 		ArrayList<String> schedule = new ArrayList<String>();
-		Log.d("ScheduleFragment", "Timeline: " + times.toString());
+		Log.d("Schedule", "Timeline: " + times.toString());
 		
+		Log.d("Schedule", "Preparing schedule");
 		for(int i = 0; i < 24; i ++) {
 			Time time = new Time(i, 0);
-			int numPlayers = times.getNumberPlayersAtTime(time);
-			if (numPlayers > 0) {
-				schedule.add("" + i + ":00 - " + times.getNumberPlayersAtTime(time) + " players");
-			}
+			// int numPlayers = times.getNumberPlayersAtTime(time);
+			schedule.add(time.toString() + " - " + times.getNumberPlayersAtTime(time) + " players");
 		}
 		
     	listAdapter = new ArrayAdapter<String>(this, R.layout.simplerow, schedule);
     	timesListView.setAdapter(listAdapter);
 
-    	Log.d("ScheduleFragment", "Setting onClick for listview");
+    	Log.d("Schedule", "Setting onClick for listview");
     	timesListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
     		public void onItemClick(AdapterView <? > arg0, View view, int position, long id) {
     	    	// TODO: onClick
     		}
     	});
+    	
+    	timesListView.setSelection(14);
 	}
 }

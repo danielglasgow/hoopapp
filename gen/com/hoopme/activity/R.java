@@ -1472,6 +1472,7 @@ containing a value of this type.
         public static final int action_bar_subtitle=0x7f050035;
         public static final int action_bar_title=0x7f050034;
         public static final int action_context_bar=0x7f05002f;
+        public static final int action_home=0x7f050072;
         public static final int action_menu_divider=0x7f050016;
         public static final int action_menu_presenter=0x7f050017;
         public static final int action_mode_close_button=0x7f050036;

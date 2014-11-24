@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -20,17 +21,15 @@ public class MainActivity extends ActionBarActivity {
 		String username = i.getStringExtra("com.hoopme.username");
 		TextView usernameView = (TextView) findViewById(R.id.username_disp);
 		usernameView.setText("Username: " + username);
-		
-		
 	}
 
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		//Test change
-		getMenuInflater().inflate(R.menu.main, menu); //0 probably should not be 0
-		return true;
-	}
+    public boolean onCreateOptionsMenu(Menu menu) {
+    	// Inflate the menu items for use in the action bar
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {

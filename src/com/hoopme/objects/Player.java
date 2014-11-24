@@ -15,14 +15,16 @@ public class Player implements FromJSON, ToJSON {
 	private String bdate;
 	private int skill;
 	private String position;
+	private String username;
 	
-	public Player(int id, String name, String bdate, String password, int skill, String position) {
+	public Player(int id, String name, String bdate, String password, int skill, String position, String username) {
 		this.id = id;
 		this.name = name;
 		this.password = password;
 		this.bdate = bdate;
 		this.skill = skill;
 		this.position = position;
+		this.username = username;
 	}
 	
 	@Override
@@ -35,6 +37,7 @@ public class Player implements FromJSON, ToJSON {
 			json.put("bdate", bdate);
 			json.put("skill", skill);
 			json.put("position", position);
+			json.put("username", username);
 			return json;
 		} catch (JSONException e) {
 			e.printStackTrace();
@@ -47,7 +50,8 @@ public class Player implements FromJSON, ToJSON {
 	public static FromJSON fromJSON(JSONObject json) {
 		try {
 			return new Player(json.getInt("id"), json.getString("name"), json.getString("password"), 
-					json.getString("bdate"), json.getInt("skill"), json.getString("position"));
+					json.getString("bdate"), json.getInt("skill"), json.getString("position"),
+					json.getString("username"));
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
@@ -92,5 +96,9 @@ public class Player implements FromJSON, ToJSON {
 
 	public String getName() {
 		return name;
+	}
+	
+	public String getUsername() {
+		return username;
 	}
 }

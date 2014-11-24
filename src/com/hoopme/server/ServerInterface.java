@@ -6,6 +6,7 @@ import org.joda.time.DateTime;
 
 import com.hoopme.objects.Court;
 import com.hoopme.objects.CourtDetails;
+import com.hoopme.objects.Player;
 import com.hoopme.objects.Timeline;
 
 public interface ServerInterface {
@@ -15,5 +16,9 @@ public interface ServerInterface {
 	public List<Court> getCourts();
 	
 	public Timeline getTimeline(DateTime date, int courtId);
+	
+	public boolean createProfile(Player player);
+	
+	public int getNewPlayerId();
 	
 }
