@@ -48,6 +48,16 @@ public class MockServerConnection implements ServerInterface {
 		timeline.addAtTime(Time.AM_03, players);
 		return timeline;
 	}
+
+	@Override
+	public boolean createProfile(Player player) {
+		return false;
+	}
+
+	@Override
+	public int getNewPlayerId() {
+		return -1;
+	}
 	
 
 }
