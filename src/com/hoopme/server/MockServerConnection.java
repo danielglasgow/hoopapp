@@ -8,9 +8,11 @@ import org.joda.time.DateTime;
 import android.util.Log;
 
 import com.google.android.gms.maps.model.LatLng;
+import com.hoopme.location.LocationStatus;
+import com.hoopme.logic.Position;
 import com.hoopme.objects.Court;
 import com.hoopme.objects.CourtDetails;
-import com.hoopme.objects.Player;
+import com.hoopme.objects.PlayerDetails;
 import com.hoopme.objects.PlayerView;
 import com.hoopme.objects.Time;
 import com.hoopme.objects.Timeline;
@@ -18,11 +20,15 @@ import com.hoopme.objects.Timeline;
 
 public class MockServerConnection implements ServerInterface {
 
+	private static final PlayerDetails AVERAGE_JOE1 = new PlayerDetails(-1, "username_joe1", "Joe1 Average", "password", new DateTime(),  5, Position.POINT_GAURD);
+	private static final PlayerDetails AVERAGE_JOE2 = new PlayerDetails(-2, "username_jo2", "Joe2, Average", "passowrd", new DateTime(), 5, Position.SHOOTING_GAURD);
+	
 	@Override
 	public CourtDetails getCourtDetails(int courtId) {
-		CourtDetails courtDetails = new CourtDetails("Massel");
-		courtDetails.getPlayersAtCourt().add(new Player(1, "dani", "11/5/2014", "password", 5, "position", "username"));
-		courtDetails.getPlayersAtCourt().add(new Player(2, "danny", "11/5/2014", "password", 5, "position", "username"));
+		List<PlayerView> playersAtCourt = new ArrayList<PlayerView>();
+		playersAtCourt.add(new PlayerView(AVERAGE_JOE1));
+		playersAtCourt.add(new PlayerView(AVERAGE_JOE2));
+		CourtDetails courtDetails = new CourtDetails("Massel", playersAtCourt);
 		return courtDetails;
 	}
 
@@ -39,8 +45,8 @@ public class MockServerConnection implements ServerInterface {
 	public Timeline getTimeline(DateTime date, int courtId) {
 		Log.d("Schedule", "Creating mock schedule");
 		Timeline timeline = new Timeline(date, courtId);
-		PlayerView p1 = new PlayerView(0, "Justin");
-		PlayerView p2 = new PlayerView(1, "Daniel");
+		PlayerView p1 = new PlayerView(AVERAGE_JOE1);
+		PlayerView p2 = new PlayerView(AVERAGE_JOE2);
 		List<PlayerView> players = new ArrayList<PlayerView>();
 		players.add(p1);
 		players.add(p2);
@@ -50,13 +56,41 @@ public class MockServerConnection implements ServerInterface {
 	}
 
 	@Override
-	public boolean createProfile(Player player) {
+	public boolean createProfile(PlayerDetails player) {
 		return false;
 	}
 
 	@Override
 	public int getNewPlayerId() {
 		return -1;
+	}
+
+	@Override
+	public boolean updateTimeline(Timeline timeline, DateTime dat, int courtId) {
+		return false;
+	}
+
+	@Override
+	public PlayerDetails getPlayerDetails(int playerId) {
+		if (playerId == -1) {
+			return AVERAGE_JOE1;
+		}
+		return AVERAGE_JOE2;
+	}
+
+	@Override
+	public boolean checkIn(int playerId, int courtId, double durationHours) {
+		return false;
+	}
+
+	@Override
+	public LocationStatus updateLocation(LatLng latlng, int playerId) {
+		return LocationStatus.NO_CONNECTION;
+	}
+
+	@Override
+	public boolean validateLogin(String username, String password) {
+		return true;
 	}
 	
 

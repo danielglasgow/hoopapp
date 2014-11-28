@@ -23,7 +23,8 @@ import android.widget.Toast;
 
 import com.hoopme.activity.R;
 import com.hoopme.objects.CourtDetails;
-import com.hoopme.objects.Player;
+import com.hoopme.objects.PlayerDetails;
+import com.hoopme.objects.PlayerView;
 import com.hoopme.server.ServerConnectionProxy;
 import com.hoopme.server.ServerInterface;
 
@@ -66,7 +67,7 @@ public class CourtDetailsFragment extends Fragment {
     	// TODO: db search for players at court
     	// Create and populate list
     	ArrayList<String> players = new ArrayList<String>();
-    	for (Player player : courtDetails.getPlayersAtCourt()) {
+    	for (PlayerView player : courtDetails.getPlayersAtCourt()) {
     		players.add(player.getName());
     	}
     	

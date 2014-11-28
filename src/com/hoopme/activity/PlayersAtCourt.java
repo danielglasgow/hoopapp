@@ -6,7 +6,8 @@ import java.util.List;
 import org.joda.time.DateTime;
 
 import com.hoopme.objects.CourtDetails;
-import com.hoopme.objects.Player;
+import com.hoopme.objects.PlayerDetails;
+import com.hoopme.objects.PlayerView;
 import com.hoopme.server.ServerConnectionProxy;
 import com.hoopme.server.ServerInterface;
 
@@ -55,7 +56,7 @@ public class PlayersAtCourt extends ActionBarActivity {
     	
     	// Convert from list of players to list of string
     	List<String> players = new ArrayList<String>();
-    	for (Player player : courtDetails.getPlayersAtCourt()) {
+    	for (PlayerView player : courtDetails.getPlayersAtCourt()) {
     		players.add(player.getName());
     	}
     	

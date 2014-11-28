@@ -13,16 +13,12 @@ import com.hoopme.JSON.FromJSONUtility;
 
 public class CourtDetails implements FromJSON {
 
-	private final List<Player> playersAtCourt;
+	private final List<PlayerView> playersAtCourt;
 	private final String name;
 	
-	public CourtDetails(String name, List<Player> playersAtCourt) {
+	public CourtDetails(String name, List<PlayerView> playersAtCourt) {
 		this.playersAtCourt = playersAtCourt;
 		this.name = name;
-	}
-	
-	public CourtDetails(String name) {
-		this(name, new ArrayList<Player>());
 	}
 	
 	public static CourtDetails fromJSON(JSONObject json) {
@@ -34,14 +30,16 @@ public class CourtDetails implements FromJSON {
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
-		FromJSONFactory playerFactory = FromJSONUtility.getPlayerFactory();
-		List<Player> players = FromJSONUtility.JSONArrayToList(playerFactory, jsonArray);
+		FromJSONFactory playerFactory = FromJSONUtility.getPlayerViewFactory();
+		List<PlayerView> players = FromJSONUtility.JSONArrayToList(playerFactory, jsonArray);
 		return new CourtDetails(name, players);
 		
 	}
 
-	public List<Player> getPlayersAtCourt() {
-		return playersAtCourt;
+	public List<PlayerView> getPlayersAtCourt() {
+		List<PlayerView> players = new ArrayList<PlayerView>();
+		players.addAll(playersAtCourt);
+		return players;
 	}
 
 	public String getName() {

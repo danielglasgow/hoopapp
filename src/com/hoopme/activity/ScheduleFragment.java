@@ -7,7 +7,7 @@ import org.joda.time.DateTime;
 
 import com.hoopme.activity.R;
 import com.hoopme.objects.CourtDetails;
-import com.hoopme.objects.Player;
+import com.hoopme.objects.PlayerDetails;
 import com.hoopme.objects.Time;
 import com.hoopme.objects.Timeline;
 import com.hoopme.server.ServerConnectionProxy;

@@ -9,7 +9,7 @@ import org.json.JSONObject;
 
 import com.hoopme.objects.Court;
 import com.hoopme.objects.CourtDetails;
-import com.hoopme.objects.Player;
+import com.hoopme.objects.PlayerDetails;
 import com.hoopme.objects.PlayerView;
 import com.hoopme.objects.Timeline;
 
@@ -41,7 +41,7 @@ public class FromJSONUtility {
 		return new FromJSONFactory() {
 			@Override
 			public FromJSON fromJSON(JSONObject json) {
-				return Player.fromJSON(json);
+				return PlayerDetails.fromJSON(json);
 			}	
 		};
 	}
@@ -87,6 +87,15 @@ public class FromJSONUtility {
 			@Override
 			public FromJSON fromJSON(JSONObject json) {
 				return PlayerView.fromJSON(json);
+			}	
+		};
+	}
+	
+	public static FromJSONFactory getPlayerDetailsFactory() {
+		return new FromJSONFactory() {
+			@Override
+			public FromJSON fromJSON(JSONObject json) {
+				return PlayerDetails.fromJSON(json);
 			}	
 		};
 	}

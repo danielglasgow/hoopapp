@@ -1,9 +1,13 @@
 package com.hoopme.activity;
 
+import org.joda.time.DateTime;
 import org.json.JSONObject;
 
 import com.hoopme.activity.R;
-import com.hoopme.objects.Player;
+import com.hoopme.logic.Position;
+import com.hoopme.objects.PlayerDetails;
+import com.hoopme.server.ServerConnectionProxy;
+import com.hoopme.server.ServerInterface;
 
 import android.support.v7.app.ActionBarActivity;
 import android.content.Intent;
@@ -35,7 +39,6 @@ public class CreateProfile extends ActionBarActivity {
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		Log.d("CreateProfile", "At create acc");
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_create_profile);
 		
@@ -124,9 +127,10 @@ public class CreateProfile extends ActionBarActivity {
 		
 		
 		// Note: add username
-		Player player = new Player(32, name, birthday, password, skillLevel, position, "username");
-		JSONObject playerObject = player.toJSON();
-		//TODO: Send to database
+		ServerInterface server = ServerConnectionProxy.getInstance();
+		int id = server.getNewPlayerId();
+		PlayerDetails player = new PlayerDetails(id, "username", name, password, DateTime.now(), skillLevel, Position.getPosition(position));
+		Log.d("CreatePorifle", "status: " + server.createProfile(player));
 		
 		Intent intent = new Intent(this, MainActivity.class);
 		intent.putExtra("com.hoopme.activity.username", name);

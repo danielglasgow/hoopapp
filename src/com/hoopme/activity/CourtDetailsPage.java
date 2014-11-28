@@ -20,7 +20,8 @@ import android.widget.TextView;
 
 import com.hoopme.activity.R;
 import com.hoopme.objects.CourtDetails;
-import com.hoopme.objects.Player;
+import com.hoopme.objects.PlayerDetails;
+import com.hoopme.objects.PlayerView;
 import com.hoopme.server.ServerConnectionProxy;
 import com.hoopme.server.ServerInterface;
 
@@ -48,7 +49,7 @@ public class CourtDetailsPage extends ActionBarActivity {
     	
     	Log.d("CourtDetails", "Populating players label");
        	TextView players_label = (TextView) findViewById(R.id.players_label);
-       	List<Player> players = courtDetails.getPlayersAtCourt();
+       	List<PlayerView> players = courtDetails.getPlayersAtCourt();
        	String playersString = "";
        	if (players.size() == 1) {
        		playersString = players.get(0).getName() + " is currently at court";
