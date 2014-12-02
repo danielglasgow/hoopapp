@@ -224,7 +224,8 @@ OnMarkerClickListener{
 	
 	private void courtClicked(Court court) {
 		Intent intent = new Intent(this, CourtDetailsPage.class);
-		intent.putExtra("com.hoopme.activity.courtId", "" + court.id);
+		Log.d("MAP", "id: " + court.id);
+		intent.putExtra("com.hoopme.courtId", court.id);
 		startActivity(intent);
 	}
 

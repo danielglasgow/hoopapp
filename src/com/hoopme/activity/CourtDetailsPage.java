@@ -51,7 +51,9 @@ public class CourtDetailsPage extends ActionBarActivity {
        	TextView players_label = (TextView) findViewById(R.id.players_label);
        	List<PlayerView> players = courtDetails.getPlayersAtCourt();
        	String playersString = "";
-       	if (players.size() == 1) {
+       	if (players.size() == 0) {
+       		playersString = "No players currently at court";
+       	} else if (players.size() == 1) {
        		playersString = players.get(0).getName() + " is currently at court";
        	} else if (players.size() == 2) {
        		playersString = players.get(0).getName() + " and " +
