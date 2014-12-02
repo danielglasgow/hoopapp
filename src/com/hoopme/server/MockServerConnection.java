@@ -92,6 +92,11 @@ public class MockServerConnection implements ServerInterface {
 	public boolean validateLogin(String username, String password) {
 		return true;
 	}
+
+	@Override
+	public int getId(String username) {
+		return -1;
+	}
 	
 
 }

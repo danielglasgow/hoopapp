@@ -31,7 +31,7 @@ import com.hoopme.objects.Timeline;
 
 public class ServerConnection implements ServerInterface {
 	
-	private static final String IP = "10.0.1.18";
+	private static final String IP = "129.64.181.48";
 	
 	private final HttpClient httpclient;
 	
@@ -46,6 +46,7 @@ public class ServerConnection implements ServerInterface {
 	@Override
 	public CourtDetails getCourtDetails(int courtId) {
 		String url = "http://" + IP + ":8080/HoopMe/CourtDetails?id=" + courtId;
+		Log.d("Server", url);
 		JSONObject json = doHttpGetRequest(url);
 		if (json != null) {
 			return (CourtDetails) FromJSONUtility.getCourtDetailsFacotry().fromJSON(json);
@@ -166,6 +167,18 @@ public class ServerConnection implements ServerInterface {
 		return LocationStatus.getLocationStatus(statusCode);
 		
 	}
+	
+	@Override
+	public int getId(String username) {
+		String url = "http://" + IP + ":8080/HoopMe/PlayerDetails?username=" + username;
+		JSONObject json = doHttpGetRequest(url);
+		try {
+			return json.getInt("username");
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return -1;
+	}
 		
 	private JSONObject doHttpGetRequest(String url) {
 		HttpGet httpget = new HttpGet(url);
@@ -210,6 +223,9 @@ public class ServerConnection implements ServerInterface {
 	    }
 	    return 400;
 	}
+
+
+	
 
 
 

@@ -33,6 +33,8 @@ public interface ServerInterface {
 	
 	public boolean validateLogin(String username, String password);
 	
+	public int getId(String username);
+	
 	
 	
 }
